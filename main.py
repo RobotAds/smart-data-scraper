@@ -1,5 +1,7 @@
 import sys
 
+import requests
+
 from scraper import fetch_page
 from parser import parse_page
 from cleaner import clean_links, clean_text_items
@@ -16,7 +18,13 @@ def main():
     print(f"Fetching: {url}")
 
     # Fetch webpage
-    html = fetch_page(url)
+    try:
+        html = fetch_page(url)
+    except requests.RequestException as error:
+        print("\nError: Unable to fetch the webpage.")
+        print(f"Reason: {error}")
+        print("Please check the URL and try again.")
+        sys.exit(1)
 
     # Parse webpage
     data = parse_page(html)
