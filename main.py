@@ -1,3 +1,5 @@
+import sys
+
 from scraper import fetch_page
 from parser import parse_page
 from cleaner import clean_links, clean_text_items
@@ -5,7 +7,11 @@ from exporter import export_csv, export_json
 
 
 def main():
-    url = "https://example.com"
+    if len(sys.argv) != 2:
+        print("Usage: python main.py <URL>")
+        sys.exit(1)
+
+    url = sys.argv[1]
 
     print(f"Fetching: {url}")
 
