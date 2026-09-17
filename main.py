@@ -1,5 +1,6 @@
 from scraper import fetch_page
 from parser import parse_page
+from cleaner import clean_links, clean_text_items
 
 
 def main():
@@ -9,6 +10,9 @@ def main():
 
     html = fetch_page(url)
     data = parse_page(html)
+
+    data["headings"] = clean_text_items(data["headings"])
+    data["links"] = clean_links(data["links"])
 
     print("Page fetched successfully.")
     print(f"Downloaded {len(html)} characters.")
